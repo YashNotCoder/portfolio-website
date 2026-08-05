@@ -99,10 +99,16 @@
   .social-row{display:flex; align-items:center; gap:14px; font-size:0.88rem; color:var(--text-dim);}
   .social-icons{display:flex; gap:10px;}
   .social-icons a{
-    width:34px; height:34px; border-radius:50%; border:1px solid var(--border);
-    display:flex; align-items:center; justify-content:center; font-size:0.85rem;
-    background:var(--card);
+    width:36px; height:36px; border-radius:50%; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; font-size:0.86rem;
+    background:var(--card); color:var(--text-dim); padding:4px 6px; text-transform:none; font-weight:600;
   }
+  .social-icons a.github{background:#0f1724; color:#fff; border-color:transparent; font-weight:700; text-transform:none; padding:6px 8px}
+  .social-icons a.linkedin{background:#0A66C2; color:#fff; border-color:transparent}
+  .social-icons svg{width:14px; height:14px; display:block}
+  .social-icons a.linkedin svg{transform:translateY(1px)}
+  .social-icons a.kaggle{background:#1f2937; color:#fff; border-color:transparent}
+  .social-icons a:hover{transform:translateY(-3px); box-shadow:0 8px 20px rgba(16,24,40,0.12)}
 
   /* hero visual: data/dashboard motif instead of stock photo */
   .hero-visual{position:relative; display:flex; justify-content:center; top:-60px;}
@@ -177,6 +183,7 @@
   }
   .project-media{width:100%; height:180px; background:linear-gradient(135deg,#1d1c19,#3a2417); display:block; overflow:hidden;}
   .project-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  .project-link{display:block; color:inherit; text-decoration:none;}
   .project-card:hover{transform:translateY(-8px); box-shadow:0 18px 40px rgba(16,14,12,0.18);} 
   .project-body{padding:16px 18px; display:flex; flex-direction:column; gap:8px;}
   .project-body h4{font-size:1.02rem; margin:0;}
@@ -283,11 +290,18 @@
         <a href="#contact" class="btn btn-ghost">Contact Me ✉</a>
       </div>
       <div class="social-row">
-        Find me on
+        <strong style="color:var(--text); margin-right:8px;">Find me on</strong>
         <div class="social-icons">
-          <a href="#" aria-label="GitHub">GH</a>
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Kaggle">Kg</a>
+          <a class="github" href="https://github.com/YashNotCoder" aria-label="GitHub" title="Open GitHub profile (opens in new tab)" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.51 11.51 0 013.003-.403c1.02.005 2.045.138 3.003.403 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a class="linkedin" href="https://www.linkedin.com/" aria-label="LinkedIn" title="Open LinkedIn profile (opens in new tab)" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452H17.29v-5.569c0-1.328-.027-3.038-1.851-3.038-1.851 0-2.134 1.445-2.134 2.939v5.668H9.124V9h3.017v1.561h.043c.421-.797 1.451-1.637 2.987-1.637 3.193 0 3.785 2.102 3.785 4.833v6.695zM5.337 7.433a1.746 1.746 0 11.001-3.492 1.746 1.746 0 01-.001 3.492zM7.119 20.452H3.555V9H7.12v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.73v20.541C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.73C24 .774 23.2 0 22.225 0z"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
@@ -340,8 +354,7 @@
                 <h5>Databases</h5>
                 <ul>
                   <li>SQL</li>
-                  <li>PostgreSQL</li>
-                  <li>Supabase</li>
+                  <li>MySQL</li>
                 </ul>
               </div>
               <div class="about-skill-group">
@@ -375,10 +388,10 @@
             <div>
               <h4>Currently Learning</h4>
               <ul>
-                <li>Microsoft Power BI (PL-300)</li>
-                <li>Python for Data Analysis</li>
-                <li>Cloud Databases & Modern BI Workflows</li>
-              </ul>
+                  <li>Preparing for Microsoft Power BI (PL-300)</li>
+                  <li>Python for Data Analysis</li>
+                  <li>Cloud Databases & Modern BI Workflows</li>
+                </ul>
             </div>
 
             <div>
@@ -429,6 +442,7 @@
         <a href="#projects-full" class="more-link" style="margin:0; font-size:0.82rem;">View All →</a>
       </div>
       <div class="projects-grid">
+        <a class="project-link" href="https://github.com/YashNotCoder/Superstore-Sales-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
           <div class="project-media">
             <img src="images/Sales_dashboard/Sales_dashboard.png" alt="Sales Dashboard screenshot" data-gallery="images/Sales_dashboard/Sales_dashboard.png">
@@ -439,7 +453,9 @@
             <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">DAX</span><span class="project-tag">Excel</span></div>
           </div>
         </article>
+        </a>
 
+        <a class="project-link" href="https://github.com/YashNotCoder/Hr_Analytics-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
           <div class="project-media">
             <img src="images/HR_Analytics/HR_Analytics_1.png" alt="HR Analytics screenshot" data-gallery="images/HR_Analytics/HR_Analytics_1.png|images/HR_Analytics/HR_Analytics_2.png">
@@ -450,7 +466,9 @@
             <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">Power Query</span></div>
           </div>
         </article>
+        </a>
 
+        <a class="project-link" href="https://github.com/YashNotCoder/Credit-Card-Fraud-Detection-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
           <div class="project-media">
             <img src="images/Credit_Fraud/Credit_Fraud 2.png" alt="Credit Card Fraud Detection screenshot" data-gallery="images/Credit_Fraud/Credit_Fraud 2.png|images/Credit_Fraud/Credit_Fraud 1.png|images/Credit_Fraud/Credit_Fraud 3.png">
@@ -461,6 +479,7 @@
             <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">SQL</span></div>
           </div>
         </article>
+        </a>
       </div>
     </div>
   </div>
@@ -474,7 +493,7 @@
       <div class="tl-item">
         <div class="date">2026</div>
         <h4>BTech in Information Technology</h4>
-        <p>Graduated with a focus on data-driven problem solving and web fundamentals.</p>
+        <p>Graduated from Mumbai University.</p>
       </div>
     </div>
   </div>
@@ -691,6 +710,21 @@
     }).catch(() => alert('Error sending message.'));
     */
   });
+  
+  // Ensure social links open in a new tab and log clicks for basic tracking
+  (function(){
+    document.querySelectorAll('.social-icons a').forEach(a => {
+      // reinforce attributes in case they were changed
+      a.setAttribute('target', a.getAttribute('target') || '_blank');
+      a.setAttribute('rel', a.getAttribute('rel') || 'noopener noreferrer');
+      // keep titles accessible; add default if missing
+      if (!a.getAttribute('title')) a.setAttribute('title', 'Open link (opens in new tab)');
+      a.addEventListener('click', () => {
+        // lightweight client-side logging; replace with analytics call if desired
+        console.log('Social link clicked:', a.href);
+      });
+    });
+  })();
 </script>
 
 </body>
