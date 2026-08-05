@@ -267,7 +267,7 @@
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
-      <a href="#" class="btn btn-primary" id="resumeBtn">↓ Resume</a>
+      <a href="#" class="btn btn-primary" id="resumeBtn">Resume</a>
     </div>
   </div>
 </nav>
@@ -295,7 +295,7 @@
     <div class="blob"></div>
 
     <div class="photo-circle">
-        <img src="Professional Photo 2.jpg" alt="Yash Chandivade">
+      <img src="images/Professional Photo/Professional Photo 2.jpg" alt="Yash Chandivade">
     </div>
 
     
@@ -431,7 +431,7 @@
       <div class="projects-grid">
         <article class="project-card">
           <div class="project-media">
-            <img src="Sales_dashboard.png" alt="Sales Dashboard screenshot">
+            <img src="images/Sales_dashboard/Sales_dashboard.png" alt="Sales Dashboard screenshot" data-gallery="images/Sales_dashboard/Sales_dashboard.png">
           </div>
           <div class="project-body">
             <h4>Sales Dashboard</h4>
@@ -442,7 +442,7 @@
 
         <article class="project-card">
           <div class="project-media">
-            <img src="HR_Analytics_1.png" alt="HR Analytics screenshot">
+            <img src="images/HR_Analytics/HR_Analytics_1.png" alt="HR Analytics screenshot" data-gallery="images/HR_Analytics/HR_Analytics_1.png|images/HR_Analytics/HR_Analytics_2.png">
           </div>
           <div class="project-body">
             <h4>HR Analytics Dashboard</h4>
@@ -453,7 +453,7 @@
 
         <article class="project-card">
           <div class="project-media">
-            <img src="Credit_Fraud.png" alt="Credit Card Fraud Detection screenshot">
+            <img src="images/Credit_Fraud/Credit_Fraud 2.png" alt="Credit Card Fraud Detection screenshot" data-gallery="images/Credit_Fraud/Credit_Fraud 2.png|images/Credit_Fraud/Credit_Fraud 1.png|images/Credit_Fraud/Credit_Fraud 3.png">
           </div>
           <div class="project-body">
             <h4>Credit Card Fraud Detection</h4>
@@ -485,11 +485,11 @@
     <div class="section-label"><span class="ic">✉</span> Contact</div>
     <div class="contact-grid">
       <div class="contact-info">
-        <div class="row"><span class="ic">@</span> your.email@example.com</div>
+        <div class="row"><span class="ic">@</span> yashcnetwork@gmail.com</div>
         <div class="row"><span class="ic">☎</span> +91 7058070562</div>
         <div class="row"><span class="ic">📍</span> Mumbai, Maharashtra, India</div>
       </div>
-      <form onsubmit="event.preventDefault(); alert('This is a placeholder form — connect it to a backend or form service to make it live.');">
+      <form id="contactForm">
         <input type="text" placeholder="Your Name" required>
         <input type="email" placeholder="Your Email" required>
         <textarea placeholder="Your Message" required></textarea>
@@ -568,7 +568,7 @@
     });
   });
 
-  // Lightbox behavior for project images with previous/next navigation
+  // Lightbox behavior for project images with previous/next navigation (project-specific galleries + swipe)
   (function(){
     const lightbox = document.getElementById('lightbox');
     const lbImg = lightbox.querySelector('.lightbox-img');
@@ -576,30 +576,33 @@
     const lbClose = lightbox.querySelector('.lightbox-close');
     const lbPrev = lightbox.querySelector('.lightbox-prev');
     const lbNext = lightbox.querySelector('.lightbox-next');
-    const imgs = Array.from(document.querySelectorAll('.project-media img'));
+
+    let currentGallery = [];
     let currentIndex = -1;
+    let touchStartX = 0;
+    let touchEndX = 0;
 
     function showAt(index){
-      if(!imgs.length) return;
-      currentIndex = (index + imgs.length) % imgs.length;
-      const src = imgs[currentIndex].src;
-      const alt = imgs[currentIndex].alt || '';
-      lbImg.src = src;
-      lbImg.alt = alt;
-      lbCaption.textContent = alt;
+      if(!currentGallery.length) return;
+      currentIndex = (index + currentGallery.length) % currentGallery.length;
+      const item = currentGallery[currentIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.alt || '';
+      lbCaption.textContent = item.alt || '';
       lightbox.setAttribute('aria-hidden','false');
       lbClose.focus();
       document.body.style.overflow = 'hidden';
     }
 
-    function open(img){
-      const idx = imgs.findIndex(i => i === img);
-      showAt(idx >= 0 ? idx : 0);
+    function openGallery(gallery, startIndex = 0){
+      currentGallery = gallery;
+      showAt(startIndex);
     }
 
     function close(){
       lightbox.setAttribute('aria-hidden','true');
       lbImg.src = '';
+      currentGallery = [];
       currentIndex = -1;
       document.body.style.overflow = '';
     }
@@ -607,11 +610,41 @@
     function next(){ showAt(currentIndex + 1); }
     function prev(){ showAt(currentIndex - 1); }
 
-    imgs.forEach(i => i.addEventListener('click', (e) => { open(e.currentTarget); }));
+    function parseGalleryString(str, alt){
+      return str.split('|').map(p => ({ src: p.trim(), alt: alt || '' }));
+    }
+
+    document.querySelectorAll('.project-media img').forEach(img => {
+      img.addEventListener('click', (e) => {
+        const el = e.currentTarget;
+        const alt = el.getAttribute('alt') || '';
+        if (el.dataset && el.dataset.gallery){
+          const gallery = parseGalleryString(el.dataset.gallery, alt);
+          openGallery(gallery, 0);
+        } else {
+          openGallery([{ src: el.getAttribute('src'), alt }], 0);
+        }
+      });
+
+      // touch support on thumbnails: quick swipe opens gallery and advances
+      let startX = 0;
+      img.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
+      img.addEventListener('touchend', (e) => {
+        const endX = (e.changedTouches && e.changedTouches[0].clientX) || 0;
+        if (startX && Math.abs(endX - startX) > 40){
+          const el = e.currentTarget;
+          const gallery = el.dataset && el.dataset.gallery ? parseGalleryString(el.dataset.gallery, el.alt) : [{ src: el.src, alt: el.alt }];
+          openGallery(gallery, 0);
+          if (endX < startX) next(); else prev();
+        }
+      }, {passive:true});
+    });
+
     lbClose.addEventListener('click', close);
     lbNext.addEventListener('click', next);
     lbPrev.addEventListener('click', prev);
-    lightbox.addEventListener('click', (e) => { if(e.target === lightbox) close(); });
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+
     window.addEventListener('keydown', (e) => {
       if (lightbox.getAttribute('aria-hidden') === 'false'){
         if (e.key === 'Escape') close();
@@ -619,7 +652,45 @@
         if (e.key === 'ArrowLeft') prev();
       }
     });
+
+    // touch swipe for lightbox
+    lightbox.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, {passive:true});
+    lightbox.addEventListener('touchend', (e) => {
+      touchEndX = (e.changedTouches && e.changedTouches[0].clientX) || 0;
+      if (!touchStartX) return;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40){
+        if (diff < 0) next(); else prev();
+      }
+      touchStartX = 0; touchEndX = 0;
+    }, {passive:true});
+
   })();
+
+  // Contact form handler: opens user's email client with prefilled subject/body.
+  // For server-based delivery (no client needed) use Formspree, EmailJS, or your own backend.
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = form.querySelector('input[type="text"]').value.trim();
+    const email = form.querySelector('input[type="email"]').value.trim();
+    const message = form.querySelector('textarea').value.trim();
+    const subject = encodeURIComponent('Website message from ' + (name || email));
+    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+    // Open the user's default mail client with a pre-filled message
+    window.location.href = `mailto:yashcnetwork@gmail.com?subject=${subject}&body=${body}`;
+
+    /* Example: send to Formspree instead (replace YOUR_FORM_ID)
+    fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    }).then(res => {
+      if (res.ok) alert('Message sent — thank you!');
+      else alert('Error sending message.');
+    }).catch(() => alert('Error sending message.'));
+    */
+  });
 </script>
 
 </body>
