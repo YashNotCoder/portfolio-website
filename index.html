@@ -182,17 +182,18 @@
   .projects-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; margin-top:6px;}
   .project-card{
     background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow);
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; height:100%;
     transition:transform .22s ease, box-shadow .22s ease;
   }
-  .project-media{width:100%; height:180px; background:linear-gradient(135deg,#1d1c19,#3a2417); display:block; overflow:hidden;}
-  .project-media img{width:100%; height:100%; object-fit:cover; display:block;}
-  .project-link{display:block; color:inherit; text-decoration:none;}
+  .project-media{width:100%; height:180px; background:linear-gradient(135deg,#1d1c19,#3a2417); display:block; overflow:hidden; cursor:zoom-in;}
+  .project-media img{width:100%; height:100%; object-fit:cover; display:block; cursor:zoom-in;}
   .project-card:hover{transform:translateY(-8px); box-shadow:0 18px 40px rgba(16,14,12,0.18);} 
-  .project-body{padding:16px 18px; display:flex; flex-direction:column; gap:8px;}
+  .project-body{padding:16px 18px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .project-body-link{display:flex; flex-direction:column; gap:8px; color:inherit; text-decoration:none; flex:1;}
+  .project-body-link:hover h4{color:var(--accent);}
   .project-body h4{font-size:1.02rem; margin:0;}
   .project-body p{font-size:0.92rem; color:var(--text-dim); margin:0;}
-  .project-tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+  .project-tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto;}
   .project-tag{font-size:0.72rem; background:var(--bg-alt); color:var(--text-dim); padding:6px 10px; border-radius:999px;}
   @media (max-width:1000px){
     .projects-grid{grid-template-columns:repeat(2, 1fr);}  
@@ -225,6 +226,9 @@
     color:var(--text); font-family:inherit; font-size:0.92rem;
   }
   form textarea{resize:vertical; min-height:100px;}
+  .form-status{min-height:20px; font-size:0.9rem; color:var(--text-dim);} 
+  .form-status.success{color:#15803d;} 
+  .form-status.error{color:#dc2626;} 
 
   footer{border-top:1px solid var(--border); padding:26px 0; text-align:center; font-size:0.85rem; color:var(--text-dim);}
 
@@ -301,7 +305,7 @@
               <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.744.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.775.418-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.51 11.51 0 013.003-.403c1.02.005 2.045.138 3.003.403 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
             </svg>
           </a>
-          <a class="linkedin" href="https://www.linkedin.com/" aria-label="LinkedIn" title="Open LinkedIn profile (opens in new tab)" target="_blank" rel="noopener noreferrer">
+          <a class="linkedin" href="https://www.linkedin.com/in/yash-chandivade-8113bb295/" aria-label="LinkedIn" title="Open LinkedIn profile (opens in new tab)" target="_blank" rel="noopener noreferrer">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
               <path d="M20.447 20.452H17.29v-5.569c0-1.328-.027-3.038-1.851-3.038-1.851 0-2.134 1.445-2.134 2.939v5.668H9.124V9h3.017v1.561h.043c.421-.797 1.451-1.637 2.987-1.637 3.193 0 3.785 2.102 3.785 4.833v6.695zM5.337 7.433a1.746 1.746 0 11.001-3.492 1.746 1.746 0 01-.001 3.492zM7.119 20.452H3.555V9H7.12v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.73v20.541C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.73C24 .774 23.2 0 22.225 0z"/>
             </svg>
@@ -446,44 +450,44 @@
         <a href="#projects-full" class="more-link" style="margin:0; font-size:0.82rem;">View All →</a>
       </div>
       <div class="projects-grid">
-        <a class="project-link" href="https://github.com/YashNotCoder/Superstore-Sales-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
-          <div class="project-media">
+          <div class="project-media" role="button" tabindex="0" aria-label="Open gallery for Sales Dashboard">
             <img src="images/Sales_dashboard/Sales_dashboard.png" alt="Sales Dashboard screenshot" data-gallery="images/Sales_dashboard/Sales_dashboard.png">
           </div>
           <div class="project-body">
-            <h4>Sales Dashboard</h4>
-            <p>Power BI dashboard on the Sample Superstore dataset — sales, profit, and regional trends at a glance.</p>
-            <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">DAX</span><span class="project-tag">Excel</span></div>
+            <a class="project-body-link" href="https://github.com/YashNotCoder/Superstore-Sales-Dashboard" target="_blank" rel="noopener noreferrer">
+              <h4>Sales Dashboard</h4>
+              <p>Power BI dashboard on the Sample Superstore dataset — sales, profit, and regional trends at a glance.</p>
+              <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">DAX</span><span class="project-tag">Excel</span></div>
+            </a>
           </div>
         </article>
-        </a>
 
-        <a class="project-link" href="https://github.com/YashNotCoder/Hr_Analytics-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
-          <div class="project-media">
+          <div class="project-media" role="button" tabindex="0" aria-label="Open gallery for HR Analytics Dashboard">
             <img src="images/HR_Analytics/HR_Analytics_1.png" alt="HR Analytics screenshot" data-gallery="images/HR_Analytics/HR_Analytics_1.png|images/HR_Analytics/HR_Analytics_2.png">
           </div>
           <div class="project-body">
-            <h4>HR Analytics Dashboard</h4>
-            <p>Attrition and workforce insights built on the IBM HR Analytics dataset.</p>
-            <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">Power Query</span></div>
+            <a class="project-body-link" href="https://github.com/YashNotCoder/Hr_Analytics-Dashboard" target="_blank" rel="noopener noreferrer">
+              <h4>HR Analytics Dashboard</h4>
+              <p>Attrition and workforce insights built on the IBM HR Analytics dataset.</p>
+              <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">Power Query</span><span class="project-tag">SQL</span></div>
+            </a>
           </div>
         </article>
-        </a>
 
-        <a class="project-link" href="https://github.com/YashNotCoder/Credit-Card-Fraud-Detection-Dashboard" target="_blank" rel="noopener noreferrer">
         <article class="project-card">
-          <div class="project-media">
+          <div class="project-media" role="button" tabindex="0" aria-label="Open gallery for Credit Card Fraud Detection dashboard">
             <img src="images/Credit_Fraud/Credit_Fraud 2.png" alt="Credit Card Fraud Detection screenshot" data-gallery="images/Credit_Fraud/Credit_Fraud 2.png|images/Credit_Fraud/Credit_Fraud 1.png|images/Credit_Fraud/Credit_Fraud 3.png">
           </div>
           <div class="project-body">
-            <h4>Credit Card Fraud Detection</h4>
-            <p>Executive summary, pattern analysis, and prevention guidelines for flagged transactions.</p>
-            <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">SQL</span></div>
+            <a class="project-body-link" href="https://github.com/YashNotCoder/Credit-Card-Fraud-Detection-Dashboard" target="_blank" rel="noopener noreferrer">
+              <h4>Credit Card Fraud Detection</h4>
+              <p>Executive summary, pattern analysis, and prevention guidelines for flagged transactions.</p>
+              <div class="project-tags"><span class="project-tag">Power BI</span><span class="project-tag">SQL</span></div>
+            </a>
           </div>
         </article>
-        </a>
       </div>
     </div>
   </div>
@@ -513,10 +517,11 @@
         <div class="row"><span class="ic">📍</span> Mumbai, Maharashtra, India</div>
       </div>
       <form id="contactForm">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="button" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+        <div class="form-status" aria-live="polite"></div>
       </form>
     </div>
   </div>
@@ -637,26 +642,37 @@
       return str.split('|').map(p => ({ src: p.trim(), alt: alt || '' }));
     }
 
-    document.querySelectorAll('.project-media img').forEach(img => {
-      img.addEventListener('click', (e) => {
-        const el = e.currentTarget;
-        const alt = el.getAttribute('alt') || '';
-        if (el.dataset && el.dataset.gallery){
-          const gallery = parseGalleryString(el.dataset.gallery, alt);
+    document.querySelectorAll('.project-media').forEach(media => {
+      const img = media.querySelector('img');
+      if (!img) return;
+
+      const openMediaGallery = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const alt = img.getAttribute('alt') || '';
+        if (img.dataset && img.dataset.gallery){
+          const gallery = parseGalleryString(img.dataset.gallery, alt);
           openGallery(gallery, 0);
         } else {
-          openGallery([{ src: el.getAttribute('src'), alt }], 0);
+          openGallery([{ src: img.getAttribute('src'), alt }], 0);
+        }
+      };
+
+      media.addEventListener('click', openMediaGallery);
+      media.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openMediaGallery(e);
         }
       });
 
-      // touch support on thumbnails: quick swipe opens gallery and advances
       let startX = 0;
-      img.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
-      img.addEventListener('touchend', (e) => {
+      media.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, {passive:true});
+      media.addEventListener('touchend', (e) => {
         const endX = (e.changedTouches && e.changedTouches[0].clientX) || 0;
         if (startX && Math.abs(endX - startX) > 40){
-          const el = e.currentTarget;
-          const gallery = el.dataset && el.dataset.gallery ? parseGalleryString(el.dataset.gallery, el.alt) : [{ src: el.src, alt: el.alt }];
+          e.preventDefault();
+          const gallery = img.dataset && img.dataset.gallery ? parseGalleryString(img.dataset.gallery, img.alt) : [{ src: img.src, alt: img.alt }];
           openGallery(gallery, 0);
           if (endX < startX) next(); else prev();
         }
@@ -690,30 +706,8 @@
 
   })();
 
-  // Contact form handler: opens user's email client with prefilled subject/body.
-  // For server-based delivery (no client needed) use Formspree, EmailJS, or your own backend.
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const form = e.currentTarget;
-    const name = form.querySelector('input[type="text"]').value.trim();
-    const email = form.querySelector('input[type="email"]').value.trim();
-    const message = form.querySelector('textarea').value.trim();
-    const subject = encodeURIComponent('Website message from ' + (name || email));
-    const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
-    // Open the user's default mail client with a pre-filled message
-    window.location.href = `mailto:yashcnetwork@gmail.com?subject=${subject}&body=${body}`;
+  // Contact form is intentionally static for now.
 
-    /* Example: send to Formspree instead (replace YOUR_FORM_ID)
-    fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, email, message })
-    }).then(res => {
-      if (res.ok) alert('Message sent — thank you!');
-      else alert('Error sending message.');
-    }).catch(() => alert('Error sending message.'));
-    */
-  });
   
   // Ensure social links open in a new tab and log clicks for basic tracking
   (function(){
