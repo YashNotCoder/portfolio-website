@@ -279,7 +279,7 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
@@ -495,9 +495,9 @@
   </div>
 </section>
 
-<section id="experience">
+<section id="education">
   <div class="wrap">
-    <div class="section-label"><span class="ic">◆</span> Experience</div>
+    <div class="section-label"><span class="ic">◆</span> Education</div>
     <div class="timeline">
       
       <div class="tl-item">
@@ -518,13 +518,17 @@
         <div class="row"><span class="ic">☎</span> +91 7058070562</div>
         <div class="row"><span class="ic">📍</span> Mumbai, Maharashtra, India</div>
       </div>
-      <form id="contactForm">
+      <form id="contactForm" action="https://formsubmit.co/yashcnetwork@gmail.com" method="POST" target="formTarget">
+        <input type="hidden" name="_subject" value="Portfolio Contact Form Submission">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
         <input type="text" name="name" placeholder="Your Name" required>
         <input type="email" name="email" placeholder="Your Email" required>
         <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="button" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
         <div class="form-status" aria-live="polite"></div>
       </form>
+      <iframe name="formTarget" id="formTarget" style="display:none;" src="about:blank" aria-hidden="true"></iframe>
     </div>
   </div>
 </section>
@@ -571,6 +575,34 @@
   document.getElementById('resumeBtn').addEventListener('click', (e) => {
     e.preventDefault();
     alert('Add your resume PDF and link it here — e.g. href="resume.pdf" download.');
+  });
+
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = contactForm.querySelector('.form-status');
+  const formTarget = document.getElementById('formTarget');
+  let isSubmitting = false;
+
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!contactForm.checkValidity()) {
+      formStatus.textContent = 'Please fill in all required fields before sending.';
+      formStatus.className = 'form-status error';
+      return;
+    }
+
+    formStatus.textContent = 'Sending your message...';
+    formStatus.className = 'form-status';
+    isSubmitting = true;
+    contactForm.submit();
+  });
+
+  formTarget.addEventListener('load', () => {
+    if (!isSubmitting) return;
+    isSubmitting = false;
+    formStatus.textContent = 'Message sent successfully. Thank you!';
+    formStatus.className = 'form-status success';
+    contactForm.reset();
   });
 
   // animate skill bars when visible
@@ -708,9 +740,6 @@
 
   })();
 
-  // Contact form is intentionally static for now.
-
-  
   // Ensure social links open in a new tab and log clicks for basic tracking
   (function(){
     document.querySelectorAll('.social-icons a').forEach(a => {
