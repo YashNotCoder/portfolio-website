@@ -241,6 +241,29 @@
     .contact-grid{grid-template-columns:1fr;}
     .hero h1{font-size:2.3rem;}
     .badge-float{right:6px;}
+    /* Mobile: remove decorative blob and add an orange glow behind the photo border */
+    .hero-visual .blob{
+      display:none !important;
+    }
+    .hero-visual .photo-circle{
+      z-index:2;
+      position:relative;
+      margin:0 auto;
+      box-shadow:0 10px 30px rgba(242,97,29,0.14);
+    }
+    .hero-visual .photo-circle::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      width:112%;
+      height:112%;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(242,97,29,0.16) 0%, rgba(242,97,29,0.06) 35%, transparent 60%);
+      z-index:-1;
+      pointer-events:none;
+    }
   }
   :focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
   @media (prefers-reduced-motion: reduce){
