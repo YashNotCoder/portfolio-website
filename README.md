@@ -60,6 +60,7 @@ More projects and improvements are continuously being added as I learn and grow.
 - 📚 Preparing for Microsoft PL-300
 - 📊 Building end-to-end analytics projects
 - 💼 Preparing for Data Analyst opportunities
+- 🐍 Preparing Python for transition into Data scientist 
 
 ---
 
