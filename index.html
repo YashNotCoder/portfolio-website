@@ -307,7 +307,7 @@
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙</button>
-      <a href="#" class="btn btn-primary" id="resumeBtn">Resume</a>
+      <a href="resume.pdf" class="btn btn-primary" id="resumeBtn" download="Yash_Chandivade_Resume.pdf">Resume</a>
     </div>
   </div>
 </nav>
@@ -595,11 +595,7 @@
     applyTheme(nextTheme);
     localStorage.setItem('portfolio-theme', nextTheme);
   });
-
-  document.getElementById('resumeBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('Add your resume PDF and link it here — e.g. href="resume.pdf" download.');
-  });
+  // Resume button now links directly to resume.html; no JS handler needed.
 
   const contactForm = document.getElementById('contactForm');
   const formStatus = contactForm.querySelector('.form-status');
